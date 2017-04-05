@@ -1,23 +1,53 @@
-var
+cursos = ["administracao_d_cg", "administracao_n_ss", "administracao_n_cg", "agronomia_d_pl",
+    "arquitetura_e_urbanismo_d_cg", "arte_e_midia_d_cg", "ciencia_da_computacao_d_cg", "ciencias_biologicas_lic_d_ct",
+    "ciencias_biologicas_lic_d_pt", "ciencias_biologicas_lic_m_cz", "ciencias_biologicas_lic_n_ct",
+    "ciencias_biologicas_lic_n_pt", "ciencias_contabeis_n_ss", "ciencias_economicas_m_cg", "ciencias_economicas_n_cg",
+    "ciencias_sociais_lic_d_cg", "ciencias_sociais_lic_n_sm", "comunicacao_social_d_cg", "comunicacao_social_n_cg",
+    "curso_sup_de_tecn_em_agroecologia_d_sm", "curso_sup_de_tecn_em_gestao_publica_n_sm", "design_d_cg",
+    "educacao_do_campo_lic_d_sm", "enfermagem_d_ct", "enfermagem_d_cz", "enfermagem_d_cg",
+    "eng_de_biotecnologia_e_bioprocessos_d_sm", "engenharia_agricola_d_cg", "engenharia_ambiental_d_pl",
+    "engenharia_civil_d_cg", "engenharia_de_alimentos_d_pl", "engenharia_de_biossistemas_d_sm",
+    "engenharia_de_materiais_d_cg", "engenharia_de_minas_d_cg", "engenharia_de_petroleo_d_cg",
+    "engenharia_de_producao_d_sm", "engenharia_de_producao_d_cg", "engenharia_eletrica_cg", "engenharia_florestal_d_pt",
+    "engenharia_mecanica_d_cg", "engenharia_quimica_d_cg", "estatistica_d_cg", "farmacia_d_ct", "filosofia_bac_n_cg",
+    "filosofia_lic_n_cg", "fisica_lic_d_cg", "fisica_lic_d_ct", "fisica_lic_n_cz", "fisica_lic_n_ct",
+    "geografia_lic_d_cg", "geografia_lic_n_cg", "geografia_licenciatura_m_cz", "geografia_licenciatura_n_cz",
+    "historia_lic_d_cg", "historia_lic_d_parfor_cg", "historia_lic_m_cz", "historia_lic_n_cz", "historia_lic_n_cg",
+    "letras_espanhol_licenciatura_n_cg", "letras_ling_port_ling_franc_lic_d_cg", "letras_lingua_inglesa_lic_d_cz",
+    "letras_lingua_inglesa_lic_d_cg", "letras_lingua_portuguesa_lic_m_cz", "letras_lingua_portuguesa_lic_n_cz",
+    "letras_lingua_portuguesa_lic_n_cg", "letras_lingua_portuguesa_lic_d_cg", "matematica_bac_d_cg",
+    "matematica_lic_d_ct", "matematica_lic_d_cz", "matematica_lic_d_cg", "matematica_lic_d_parfor_cg",
+    "matematica_lic_n_ct", "matematica_lic_n_cg", "medicina_d_cg", "medicina_d_cz", "medicina_veterinaria_d_pt",
+    "meteorologia_d_cg", "musica_bac_d_cg", "musica_lic_d_cg", "nutricao_d_ct", "nutricao_n_ct", "odontologia_d_pt",
+    "pedagogia_lic_m_cg", "pedagogia_lic_n_cg", "pedagogia_licenciatura_m_cz", "pedagogia_licenciatura_n_cz",
+    "psicologia_n_cg", "quimica_lic_d_ct", "quimica_lic_n_ct", "quimica_lic_n_cz", "quimica_lic_n_parfor_cg",
+    "servico_social_m_ss"];
+
+	function draw(curso, grafico) {
+		d3.select("#" + grafico).selectAll("*").remove();
+		var
 		    width = 1000,
 		    height = 500;
 
-		var svg = d3.select("#chart")
+		var svg = d3.select("#" + grafico)
 				.append("svg")
 				.attr('version', '1.1')
 				.attr('viewBox', '0 0 '+width+' '+height)
-				.attr('width', '100%');
+				.attr('width', '100%')
+				.attr('text', curso);
 
 		var color = d3.scaleOrdinal(d3.schemeCategory20);
 
 		var simulation = d3.forceSimulation()
-		    .force("link", d3.forceLink().id(function(d) { return d.id; }))
-		    .force("charge", d3.forceManyBody())
-		    .force("center", d3.forceCenter(width / 2, height / 2));
+		    .force("link", d3.forceLink().iterations(4).id(function(d) { return d.id; }))
+		    .force("charge", d3.forceManyBody().strength(-4))
+		    .force("center", d3.forceCenter(width / 2, height / 2))
+		   	.force("collision", d3.forceCollide(15).strength(1.5));
+		 
 
 		//d3.json("http://analytics.lsd.ufcg.edu.br/pre/ciencia_da_computacao_d_cg/disciplinas", function(error, apiresponse) {
 		//d3.json("http://analytics.lsd.ufcg.edu.br/pre/design_d_cg/disciplinas", function(error, apiresponse) {
-		d3.json("dados-disciplinas/administracao_d_cg.json", function(error, apiresponse) {
+		d3.json("dados_disciplinas/" + curso + ".json", function(error, apiresponse) {
 		  if (error) throw error;
 
 			var links = [];
@@ -32,9 +62,6 @@ var
 								codigo_departamento : d.codigo_departamento,
 								nome : d.disciplina};
 			});
-
-			console.dir(links);
-			console.dir(nodes);
 
 		  var link = svg.append("g")
 		      .attr("class", "link")
@@ -93,3 +120,43 @@ var
 		  d.fx = null;
 		  d.fy = null;
 		}
+	}
+
+
+
+//draw("medicina_d_cg");
+//draw("ciencia_da_computacao_d_cg");
+var sel1 = document.getElementById('options1');
+var sel2 = document.getElementById('options2');
+for(var i = 0; i < cursos.length; i++) {
+    // Create the list item:
+    var item = document.createElement('li');
+    var a = document.createElement('a');
+    a.setAttribute("href", "#");
+    a.setAttribute("onclick", "return false;");
+
+    // Set its contents:
+    a.appendChild(document.createTextNode(cursos[i]));
+    item.appendChild(a);
+
+    // Add it to the list:
+    sel1.appendChild(item);
+
+    // Create the list item:
+    var item2 = document.createElement('li');
+    var a2 = document.createElement('a');
+    a2.setAttribute("href", "#");
+    a2.setAttribute("onclick", "return false;");
+
+    // Set its contents:
+    a2.appendChild(document.createTextNode(cursos[i]));
+    item2.appendChild(a2);
+
+    // Add it to the list:
+    sel2.appendChild(item2);
+}
+
+draw("engenharia_eletrica_cg", "chart1");
+draw("ciencia_da_computacao_d_cg", "chart2");
+draw("medicina_d_cg", "chart3");
+

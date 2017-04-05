@@ -28,40 +28,65 @@
 <body>
 
 	<div class="container">
-
-		<a href="index.html" class="sidebar-btn"><span class="icon-return"></span> Voltar</a>
-
 		<div class="header">
 			<div class="row">
 				<div class="col-xs-10">
-					<h2>Force layout</h2>
+					<h1>Laboratório 05 - Grafos</h1>
 				</div>
 			</div>
 		</div>
-		<ol class="breadcrumb">
-			<li><a href="map.html">Início</a></li>
-			<li><a href="map1.html">1</a></li>
-			<li class="active">2</li>
-			<li><a href="map3.html">3</a></li>
-			<li><a href="map4.html">4</a></li>
-			<li><a href="map5.html">5</a></li>
-		</ol>
 		<header>
-			<h1>Um exemplo mínimo</h1>
+			<h2>Comparação da estrutura curricular de alguns cursos da UFCG</h3>
 		</header>
 
 		<div id="chart"></div>
 
 		<div class="section">
-			<h3>Referências</h3>
-		</div>
+                <div>
+                    <div class="input-group center">
+                        <div>
+                                <h3>Engenharia Eĺétrica - CG</h3>
+                            <ul id="options1" class="dropdown-menu scrollable-menu">
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="chart1"></div>
+                </div>
+                <div>
+                    <div class="input-group center">
+                        <div>
+                                <h3>Ciência da Computação - CG</h3>
+                            <ul id="options2" class="dropdown-menu scrollable-menu">
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="chart2"></div>
+                </div>
+                <div>
+                    <div class="input-group center">
+                        <div>
+                                <h3>Medicina - CG</h3>
+                            <ul id="options1" class="dropdown-menu scrollable-menu">
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="chart3"></div>
+                </div>
+
+                <p>	É possível perceber rapidamente que o curso de Medicina se comporta de forma diferente dos demais analisados, já que este, não apresenta uma estrutura de pré-requisitos entre suas cadeiras, enquanto Computação e EE possuem. Além disso, vê-se também que as cadeiras do curso de Medicina são em sua esmagadora maioria de um único departamento, enquanto que nos outros casos estudados há maior variedade de departamentos</p>
+                <p>	Comparando Computação e Elétrica percebemos que o o curso de Ciência da Computação tem menos cadeiras e menos pré-requisitos entres estas, já que o grafo de CC é menos denso que o de EE, além disso existem menos diciplinas "soltas" na grade.</p>
+        </div>
+    </div>
 	</div>
 
 	<footer></footer>
 
 	<!-- scripts -->
 	<script src="js/d3.v4.min.js"></script>
-	<script>src="js/graph.js"</script>
+	<script src="js/graph.js"></script>
 
 </body>
 </html>
